@@ -10,6 +10,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nombreArchivo = basename($_FILES['fichero_usuario']['name']);
     $uploadError = "";
 
+    // Definir la ruta más nombre para la descarga del archivo subido
+    $directorioDescarga = "uploadfile/" . $nombreArchivo;
+
+    // Crear div
+    echo "<div style=\"margin: 30px 10%;\">";
+
     // Text
     if(empty($_REQUEST['nombre'])){
         return false;
@@ -66,10 +72,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         chmod($directorioNombre, 0777); // Dar permisos al archivo para que se pueda localizar y manipular
         echo "<br>El archivo <span style='font-weight:bold'>" . $nombreArchivo . "</span> se ha subido con éxito.<br>"; // Confirmación de la subida
         
-        echo "¿Quieres descargarlo? <a href='descargar.php'>Descargar</a>"; // Link para descargar (no se ha dinamizado)
+        echo "¿Quieres descargarlo? <a href='".$directorioDescarga."'>Descargar o visualizar</a>"; // Link para descargar
     }else{
-        echo "<br><font color=\"red\">Error. El archivo no se pudo subir.</font><br>";
+        echo "<br><font color=\"red\">Error: El archivo no se pudo subir.</font><br>";
     }
+
+    echo "<br><br><input type='button' onclick='history.back()' name='back' value='Atrás'>";
+
+    // Cerrar div
+    echo "</div>";
 
 } else {
 
@@ -131,7 +142,7 @@ Escribe un comentario
                     </textarea> <br /><br />
 
                     <label>Subir archivo </label>
-                    <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+                    <input type="hidden" name="MAX_FILE_SIZE" value="2097152" />
                     <input name="fichero_usuario" type="file" /><br /><br />
 
                     <button id="mysubmit" type="submit">Aceptar</button><br /><br />
