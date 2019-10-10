@@ -84,6 +84,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     foreach($_FILES["varios_ficheros"]["tmp_name"] as $codi=>$tmp_name){ // Coger los nombres temporales para validar la subida después
         $archivos = $_FILES["varios_ficheros"]["tmp_name"][$codi];
+        $cantidadArchivos = count($_FILES["varios_ficheros"]["tmp_name"]);
 
         if(empty($archivos)){
 
@@ -94,7 +95,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $multipleDirectorio = "/../home/marfils/html/M07/UF1/A3/multipleuploadfile/"; // Dirección a la que queremos moverlo
 
-            for($i = 0; $i <= 1; $i++){
+            for($i = 0; $i < $cantidadArchivos; $i++){
 
                 $multipleDirectorioNombre = $multipleDirectorio . basename($_FILES['varios_ficheros']['name'][$i]); // Dirección y nombre de los archivos
                 $multipleNombreArchivo = basename($_FILES['varios_ficheros']['name'][$i]); // Nombre de los archivos
